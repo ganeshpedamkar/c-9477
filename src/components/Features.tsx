@@ -4,10 +4,12 @@ import { Card } from "@/components/ui/card";
 import { Landmark, Shield, DollarSign, FileText, Calculator } from "lucide-react";
 import AssetOwnershipDialog from "./AssetOwnershipDialog";
 import SecurityManagementDialog from "./SecurityManagementDialog";
+import InterestCostDialog from "./InterestCostDialog";
 
 const Features = () => {
   const [showAssetDialog, setShowAssetDialog] = useState(false);
   const [showSecurityDialog, setShowSecurityDialog] = useState(false);
+  const [showInterestDialog, setShowInterestDialog] = useState(false);
 
   const features = [
     {
@@ -57,6 +59,7 @@ const Features = () => {
               onClick={() => {
                 if (index === 0) setShowAssetDialog(true);
                 if (index === 1) setShowSecurityDialog(true);
+                if (index === 2) setShowInterestDialog(true);
               }}
             >
               <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
@@ -78,6 +81,10 @@ const Features = () => {
       <SecurityManagementDialog 
         open={showSecurityDialog} 
         onOpenChange={setShowSecurityDialog}
+      />
+      <InterestCostDialog
+        open={showInterestDialog}
+        onOpenChange={setShowInterestDialog}
       />
     </div>
   );
