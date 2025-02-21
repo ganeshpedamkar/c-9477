@@ -1,22 +1,23 @@
+
 import { Card } from "@/components/ui/card";
 import { MessageSquare } from "lucide-react";
 
 const Testimonials = () => {
   const testimonials = [
     {
-      quote: "The best banking experience I've ever had. Simple, fast, and secure.",
-      author: "Sarah Johnson",
-      role: "Business Owner"
+      quote: "Their expertise in loan planning helped us save significantly on interest costs while maintaining optimal liquidity.",
+      author: "Business Owner",
+      role: "Corporate Client"
     },
     {
-      quote: "This app has completely transformed how I manage my finances.",
-      author: "Michael Chen",
-      role: "Software Engineer"
+      quote: "The strategic tax planning advice for our property loan resulted in substantial savings through proper structuring.",
+      author: "Property Investor",
+      role: "Real Estate Client"
     },
     {
-      quote: "Incredible user experience. Everything just works seamlessly.",
-      author: "Emma Davis",
-      role: "Financial Analyst"
+      quote: "Their comprehensive approach to security management helped us secure better terms with our lenders.",
+      author: "Finance Director",
+      role: "Enterprise Client"
     }
   ];
 
@@ -25,10 +26,10 @@ const Testimonials = () => {
       <div className="absolute inset-0 bg-accent/5 backdrop-blur-3xl"></div>
       <div className="max-w-7xl mx-auto relative z-10">
         <h2 className="text-4xl font-bold text-white text-center mb-4">
-          What Our Users Say
+          Client Success Stories
         </h2>
         <p className="text-xl text-white/60 text-center mb-12 max-w-2xl mx-auto">
-          Join thousands of satisfied users who have transformed their banking experience
+          Join our satisfied clients who have benefited from our expert loan planning services
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
