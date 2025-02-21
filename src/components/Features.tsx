@@ -6,12 +6,14 @@ import AssetOwnershipDialog from "./AssetOwnershipDialog";
 import SecurityManagementDialog from "./SecurityManagementDialog";
 import InterestCostDialog from "./InterestCostDialog";
 import RiskPlanningDialog from "./RiskPlanningDialog";
+import TaxPlanningDialog from "./TaxPlanningDialog";
 
 const Features = () => {
   const [showAssetDialog, setShowAssetDialog] = useState(false);
   const [showSecurityDialog, setShowSecurityDialog] = useState(false);
   const [showInterestDialog, setShowInterestDialog] = useState(false);
   const [showRiskDialog, setShowRiskDialog] = useState(false);
+  const [showTaxDialog, setShowTaxDialog] = useState(false);
 
   const features = [
     {
@@ -63,6 +65,7 @@ const Features = () => {
                 if (index === 1) setShowSecurityDialog(true);
                 if (index === 2) setShowInterestDialog(true);
                 if (index === 3) setShowRiskDialog(true);
+                if (index === 4) setShowTaxDialog(true);
               }}
             >
               <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
@@ -92,6 +95,10 @@ const Features = () => {
       <RiskPlanningDialog
         open={showRiskDialog}
         onOpenChange={setShowRiskDialog}
+      />
+      <TaxPlanningDialog
+        open={showTaxDialog}
+        onOpenChange={setShowTaxDialog}
       />
     </div>
   );
