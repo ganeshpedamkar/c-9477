@@ -3,9 +3,11 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Landmark, Shield, DollarSign, FileText, Calculator } from "lucide-react";
 import AssetOwnershipDialog from "./AssetOwnershipDialog";
+import SecurityManagementDialog from "./SecurityManagementDialog";
 
 const Features = () => {
   const [showAssetDialog, setShowAssetDialog] = useState(false);
+  const [showSecurityDialog, setShowSecurityDialog] = useState(false);
 
   const features = [
     {
@@ -54,6 +56,7 @@ const Features = () => {
               className="p-6 hover-lift glass-effect flex flex-col items-start gap-4 group transition-all duration-300 cursor-pointer"
               onClick={() => {
                 if (index === 0) setShowAssetDialog(true);
+                if (index === 1) setShowSecurityDialog(true);
               }}
             >
               <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
@@ -71,6 +74,10 @@ const Features = () => {
       <AssetOwnershipDialog 
         open={showAssetDialog} 
         onOpenChange={setShowAssetDialog}
+      />
+      <SecurityManagementDialog 
+        open={showSecurityDialog} 
+        onOpenChange={setShowSecurityDialog}
       />
     </div>
   );
