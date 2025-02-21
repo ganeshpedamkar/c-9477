@@ -1,8 +1,12 @@
 
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Landmark, Shield, DollarSign, FileText, Calculator } from "lucide-react";
+import AssetOwnershipDialog from "./AssetOwnershipDialog";
 
 const Features = () => {
+  const [showAssetDialog, setShowAssetDialog] = useState(false);
+
   const features = [
     {
       icon: <Landmark className="w-6 h-6 text-white" />,
@@ -47,7 +51,10 @@ const Features = () => {
           {features.map((feature, index) => (
             <Card 
               key={index} 
-              className="p-6 hover-lift glass-effect flex flex-col items-start gap-4 group transition-all duration-300"
+              className="p-6 hover-lift glass-effect flex flex-col items-start gap-4 group transition-all duration-300 cursor-pointer"
+              onClick={() => {
+                if (index === 0) setShowAssetDialog(true);
+              }}
             >
               <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
                 {feature.icon}
@@ -60,6 +67,11 @@ const Features = () => {
           ))}
         </div>
       </div>
+      
+      <AssetOwnershipDialog 
+        open={showAssetDialog} 
+        onOpenChange={setShowAssetDialog}
+      />
     </div>
   );
 };
