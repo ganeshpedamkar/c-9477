@@ -30,7 +30,7 @@
 
 /* Scroll Animation Utilities */
 .animate-in {
-  @apply transition-all duration-700 ease-out;
+  @apply transition-all duration-1000 ease-in-out;
 }
 
 .opacity-0 {
@@ -38,7 +38,7 @@
 }
 
 .translate-y-8 {
-  transform: translateY(2rem);
+  transform: translateY(1rem); /* Reduced from 2rem for subtler movement */
 }
 
 .animate-in.opacity-0 {
