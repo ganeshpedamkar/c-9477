@@ -7,16 +7,25 @@ import Download from "@/components/Download";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Calculator } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Index = () => {
+  const featuresRef = useScrollAnimation(0.4, 100);
+  const analysisRef = useScrollAnimation(0.4, 200);
+  const testimonialsRef = useScrollAnimation(0.4, 200);
+  const downloadRef = useScrollAnimation(0.4, 300);
+
   return (
     <div className="min-h-screen">
       <Navbar />
       <Hero />
-      <Features />
+      
+      <div ref={featuresRef}>
+        <Features />
+      </div>
       
       {/* Loan Cost vs. Benefit Analysis Section */}
-      <div className="py-20 px-4 bg-background relative overflow-hidden">
+      <div ref={analysisRef} className="py-20 px-4 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-accent/5 backdrop-blur-3xl"></div>
         <div className="max-w-7xl mx-auto relative z-10 text-center">
           <h2 className="text-4xl font-bold text-white mb-4">
@@ -35,8 +44,14 @@ const Index = () => {
         </div>
       </div>
       
-      <Testimonials />
-      <Download />
+      <div ref={testimonialsRef}>
+        <Testimonials />
+      </div>
+      
+      <div ref={downloadRef}>
+        <Download />
+      </div>
+      
       <Footer />
     </div>
   );
