@@ -9,9 +9,7 @@ const Navbar = () => {
           <a href="#" className="text-white/80 hover:text-white transition-colors">About us</a>
           <a href="#" className="text-white/80 hover:text-white transition-colors">Contact us</a>
           <a href="#" className="text-white/80 hover:text-white transition-colors">Pricing</a>
-          <Button variant="outline" className="text-white border-white/20 hover:bg-white/10">
-            Open your account
-          </Button>
+          <Button variant="outline" className="text-white border-white/20 bg-blue-700 hover:bg-blue-600">Calculator</Button>
           <Button className="bg-[#F2FF44] text-black hover:bg-[#E2EF34]">
             Sign in
             <LogIn className="w-4 h-4 ml-2" />
