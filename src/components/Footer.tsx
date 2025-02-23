@@ -1,14 +1,12 @@
 import { Github, Twitter, Linkedin } from "lucide-react";
 import { Button } from "./ui/button";
-
 const Footer = () => {
-  return (
-    <footer className="py-20 px-4 bg-background relative overflow-hidden">
+  return <footer className="py-20 px-4 bg-background relative overflow-hidden">
       <div className="absolute inset-0 bg-accent/5 backdrop-blur-3xl"></div>
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-white">Cardo</h3>
+            <h3 className="text-2xl font-bold text-white">PROFOUND</h3>
             <p className="text-white/60">
               Redefining the future of financial management with innovative solutions.
             </p>
@@ -62,8 +60,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
