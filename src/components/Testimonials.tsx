@@ -44,7 +44,7 @@ const Testimonials = () => {
     const scrollInterval = setInterval(() => {
       setScrollPosition((prev) => {
         const itemWidth = window.innerWidth >= 768 ? 33.33 : 100; // percentage width of each item
-        const newPosition = prev + 0.1; // small increment for smooth scrolling
+        const newPosition = prev + 0.05; // Reduced speed for smoother scrolling
         
         // Reset position when all items have scrolled
         if (newPosition >= (testimonials.length / 2) * itemWidth) {
@@ -81,11 +81,11 @@ const Testimonials = () => {
                 className="px-4 flex-shrink-0"
                 style={{ width: window.innerWidth >= 768 ? '33.33%' : '100%' }}
               >
-                <Card className="p-6 hover-lift glass-effect h-full">
+                <Card className="p-6 hover-lift glass-effect h-full max-w-[90vw] md:max-w-none mx-auto">
                   <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-4">
                     <MessageSquare className="w-6 h-6 text-white" />
                   </div>
-                  <p className="text-white/80 mb-4 italic">{testimonial.quote}</p>
+                  <p className="text-white/80 mb-4 italic text-base md:text-lg break-words">{testimonial.quote}</p>
                   <div className="text-white font-semibold">{testimonial.author}</div>
                   <div className="text-white/60 text-sm">{testimonial.role}</div>
                 </Card>
