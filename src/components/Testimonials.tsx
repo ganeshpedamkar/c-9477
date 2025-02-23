@@ -2,6 +2,7 @@
 import { Card } from "@/components/ui/card";
 import { MessageSquare } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Testimonials = () => {
   const testimonials = [
@@ -39,6 +40,7 @@ const Testimonials = () => {
   ];
 
   const [scrollPosition, setScrollPosition] = useState(0);
+  const testimonialRef = useScrollAnimation(0.1, 0); // Reduced threshold to 0.1 and delay to 0
 
   useEffect(() => {
     const scrollInterval = setInterval(() => {
@@ -58,7 +60,7 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <div className="py-20 px-4 bg-background relative overflow-hidden">
+    <div className="py-20 px-4 bg-background relative overflow-hidden" ref={testimonialRef}>
       <div className="absolute inset-0 bg-accent/5 backdrop-blur-3xl"></div>
       <div className="max-w-7xl mx-auto relative z-10">
         <h2 className="text-4xl font-bold text-white text-center mb-4">
