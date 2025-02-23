@@ -1,8 +1,12 @@
 
 import { Button } from "@/components/ui/button";
-import { LogIn } from "lucide-react";
+import { PhoneCall } from "lucide-react";
 
 const Navbar = () => {
+  const handleConnect = () => {
+    window.location.href = "tel:+919769106890";
+  };
+
   return <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-background/80 backdrop-blur-lg">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="text-2xl font-bold text-white bg-gray-900 hover:bg-gray-800">PROFOUND</div>
@@ -14,9 +18,12 @@ const Navbar = () => {
           <a href="https://btcalculator.profound.org.in/" target="_blank" rel="noopener noreferrer">
             <Button variant="outline" className="text-white border-white/20 bg-blue-700 hover:bg-blue-600">Calculator</Button>
           </a>
-          <Button className="bg-[#F2FF44] text-black hover:bg-[#E2EF34]">
-            Sign in
-            <LogIn className="w-4 h-4 ml-2" />
+          <Button 
+            className="bg-[#F2FF44] text-black hover:bg-[#E2EF34]"
+            onClick={handleConnect}
+          >
+            Connect
+            <PhoneCall className="w-4 h-4 ml-2" />
           </Button>
         </div>
       </div>
