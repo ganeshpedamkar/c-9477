@@ -12,16 +12,16 @@ const Hero = () => {
           </Button>
           <div className="grid grid-cols-3 gap-8 pt-8">
             <div>
-              <div className="text-3xl font-bold text-white">5000+</div>
-              <div className="text-white/60">Active users</div>
+              <div className="text-3xl font-bold text-white">1000+</div>
+              <div className="text-white/60">Visitors</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-white">30.3k</div>
-              <div className="text-white/60">Download</div>
+              <div className="text-3xl font-bold text-white">18</div>
+              <div className="text-white/60">Tie ups</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-white">1200+</div>
-              <div className="text-white/60">Reviews</div>
+              <div className="text-3xl font-bold text-white">1000+</div>
+              <div className="text-white/60">Clients</div>
             </div>
           </div>
         </div>
