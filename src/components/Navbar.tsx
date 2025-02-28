@@ -21,7 +21,7 @@ const Navbar = () => {
 
           {/* Desktop menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-white/80 hover:text-white transition-colors">Home</a>
+            <a href="#" className="text-white/80 hover:text-white transition-colors">Home Loan</a>
             <a href="#" className="text-white/80 hover:text-white transition-colors">About us</a>
             <a href="#" className="text-white/80 hover:text-white transition-colors">Contact us</a>
             <a href="#" className="text-white/80 hover:text-white transition-colors">Pricing</a>
