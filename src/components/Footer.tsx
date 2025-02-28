@@ -55,9 +55,7 @@ const Footer = () => {
         </div>
         
         <div className="mt-12 pt-8 border-t border-white/10">
-          <p className="text-center text-white/60">
-            © 2024 Cardo. All rights reserved.
-          </p>
+          <p className="text-center text-white/60 text-base font-normal">© 2025 PROFOUND. All rights reserved.</p>
         </div>
       </div>
     </footer>;
