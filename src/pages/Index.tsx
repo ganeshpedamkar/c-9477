@@ -8,10 +8,12 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Calculator } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import LoanAnalysisCarousel from "@/components/LoanAnalysisCarousel";
 
 const Index = () => {
   const featuresRef = useScrollAnimation(0.4, 100);
   const analysisRef = useScrollAnimation(0.4, 200);
+  const carouselRef = useScrollAnimation(0.3, 100);
   const testimonialsRef = useScrollAnimation(0.4, 200);
   const downloadRef = useScrollAnimation(0.4, 300);
 
@@ -34,6 +36,12 @@ const Index = () => {
           <p className="text-xl text-white/60 max-w-2xl mx-auto mb-8">
             Compare your ongoing Home Loan / LAP loan rates with the best rate and explore its impact on your savings and financials.
           </p>
+          
+          {/* Loan Analysis Carousel */}
+          <div ref={carouselRef} className="transform transition-all duration-500">
+            <LoanAnalysisCarousel />
+          </div>
+          
           <Button
             onClick={() => window.open('https://btcalculator.profound.org.in/', '_blank')}
             className="px-8 py-6 text-lg bg-accent hover:bg-accent/90 flex items-center gap-2 mx-auto"
