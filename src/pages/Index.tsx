@@ -13,7 +13,7 @@ import LoanAnalysisCarousel from "@/components/LoanAnalysisCarousel";
 const Index = () => {
   const featuresRef = useScrollAnimation(0.4, 100);
   const analysisRef = useScrollAnimation(0.4, 200);
-  const carouselRef = useScrollAnimation(0.3, 100);
+  const carouselRef = useScrollAnimation(0.1, 0); // Faster animation for carousel
   const testimonialsRef = useScrollAnimation(0.4, 200);
   const downloadRef = useScrollAnimation(0.4, 300);
 
@@ -38,13 +38,13 @@ const Index = () => {
           </p>
           
           {/* Loan Analysis Carousel */}
-          <div ref={carouselRef} className="transform transition-all duration-500">
+          <div ref={carouselRef} className="transform transition-all duration-500 max-w-4xl mx-auto">
             <LoanAnalysisCarousel />
           </div>
           
           <Button
             onClick={() => window.open('https://btcalculator.profound.org.in/', '_blank')}
-            className="px-8 py-6 text-lg bg-accent hover:bg-accent/90 flex items-center gap-2 mx-auto"
+            className="px-8 py-6 text-lg bg-accent hover:bg-accent/90 flex items-center gap-2 mx-auto mt-8"
           >
             <Calculator className="w-5 h-5" />
             Calculate Savings

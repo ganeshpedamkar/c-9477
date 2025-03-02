@@ -28,31 +28,37 @@ const LoanAnalysisCarousel = () => {
   }, [images.length]);
 
   return (
-    <div className="max-w-3xl mx-auto my-12">
-      <Carousel className="w-full" setApi={api => {
-        if (api) {
-          api.on('select', () => {
-            setActiveImage(api.selectedScrollSnap());
-          });
-        }
-      }}>
+    <div className="w-full mx-auto my-8">
+      <Carousel className="w-full" 
+        opts={{
+          align: "center",
+          loop: true,
+        }}
+        setApi={api => {
+          if (api) {
+            api.on('select', () => {
+              setActiveImage(api.selectedScrollSnap());
+            });
+          }
+        }}
+      >
         <CarouselContent>
           {images.map((src, index) => (
-            <CarouselItem key={index}>
-              <div className="p-1">
-                <div className="rounded-xl overflow-hidden shadow-xl">
+            <CarouselItem key={index} className="md:basis-3/4 lg:basis-1/2">
+              <div className="p-2">
+                <div className="bg-white rounded-xl overflow-hidden shadow-xl">
                   <img 
                     src={src} 
                     alt={`Loan Analysis Image ${index + 1}`} 
-                    className="w-full h-auto"
+                    className="w-full h-auto object-contain"
                   />
                 </div>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-2 bg-black/40 hover:bg-black/60 text-white border-none" />
-        <CarouselNext className="right-2 bg-black/40 hover:bg-black/60 text-white border-none" />
+        <CarouselPrevious className="left-4 bg-black/40 hover:bg-black/60 text-white border-none" />
+        <CarouselNext className="right-4 bg-black/40 hover:bg-black/60 text-white border-none" />
       </Carousel>
       
       <div className="flex justify-center mt-4 gap-2">
