@@ -1,9 +1,8 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const LoanAnalysisCarousel = () => {
-  const [visibleImages, setVisibleImages] = useState(1);
   const images = [
     "/lovable-uploads/35089942-d73c-4857-8663-8b09449246a9.png", 
     "/lovable-uploads/418c9505-da9b-4a58-8a6e-831e849f8733.png", 
@@ -14,10 +13,10 @@ const LoanAnalysisCarousel = () => {
   
   // Create refs for each image with different thresholds
   const image1Ref = useScrollAnimation(0.1, 0);
-  const image2Ref = useScrollAnimation(0.2, 100);
-  const image3Ref = useScrollAnimation(0.3, 200);
-  const image4Ref = useScrollAnimation(0.4, 300);
-  const image5Ref = useScrollAnimation(0.5, 400);
+  const image2Ref = useScrollAnimation(0.15, 100);
+  const image3Ref = useScrollAnimation(0.2, 200);
+  const image4Ref = useScrollAnimation(0.25, 300);
+  const image5Ref = useScrollAnimation(0.3, 400);
   
   // Store refs in an array for easier access
   const imageRefs = [image1Ref, image2Ref, image3Ref, image4Ref, image5Ref];
@@ -35,7 +34,7 @@ const LoanAnalysisCarousel = () => {
               <img 
                 src={src} 
                 alt={`Loan Analysis Image ${index + 1}`} 
-                className="w-full h-auto object-scale-down"
+                className="w-full h-auto object-contain"
               />
             </div>
           </div>
