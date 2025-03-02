@@ -28,7 +28,7 @@ const LoanAnalysisCarousel = () => {
   }, [images.length]);
 
   return (
-    <div className="w-full mx-auto my-8">
+    <div className="w-full my-10">
       <Carousel className="w-full" 
         opts={{
           align: "center",
@@ -44,9 +44,9 @@ const LoanAnalysisCarousel = () => {
       >
         <CarouselContent>
           {images.map((src, index) => (
-            <CarouselItem key={index} className="md:basis-3/4 lg:basis-1/2">
+            <CarouselItem key={index} className="md:basis-3/4 lg:basis-2/3">
               <div className="p-2">
-                <div className="bg-white rounded-xl overflow-hidden shadow-xl">
+                <div className="bg-white rounded-xl overflow-hidden shadow-xl border border-accent/20">
                   <img 
                     src={src} 
                     alt={`Loan Analysis Image ${index + 1}`} 
@@ -61,7 +61,7 @@ const LoanAnalysisCarousel = () => {
         <CarouselNext className="right-4 bg-black/40 hover:bg-black/60 text-white border-none" />
       </Carousel>
       
-      <div className="flex justify-center mt-4 gap-2">
+      <div className="flex justify-center mt-6 gap-2">
         {images.map((_, index) => (
           <button
             key={index}

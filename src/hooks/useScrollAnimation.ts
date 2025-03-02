@@ -8,6 +8,8 @@ export const useScrollAnimation = (threshold = 0.4, delay = 0) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          // Add visible debugging to see when this is triggered
+          console.log(`Element intersected with threshold ${threshold}`);
           setTimeout(() => {
             entry.target.classList.add('animate-in');
           }, delay);
@@ -16,6 +18,7 @@ export const useScrollAnimation = (threshold = 0.4, delay = 0) => {
       },
       {
         threshold,
+        rootMargin: '20px 0px', // Add some margin to trigger a bit earlier
       }
     );
 
