@@ -17,6 +17,7 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
+    scroll-behavior: smooth;
   }
 }
 
@@ -47,4 +48,34 @@
 
 .animate-in.translate-y-8 {
   transform: translateY(0);
+}
+
+/* Horizontal scroll sequence styles */
+.horizontal-scroll-container {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.horizontal-scroll-content {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.horizontal-scroll-image {
+  transition: opacity 0.5s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.horizontal-scroll-image.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.horizontal-scroll-image.inactive {
+  opacity: 0;
+  transform: translateX(50px);
 }
