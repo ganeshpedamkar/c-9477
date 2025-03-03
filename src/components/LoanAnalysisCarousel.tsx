@@ -13,7 +13,7 @@ const LoanAnalysisCarousel = () => {
   
   const { sectionRef, contentRef, activeImage, isLocked, scrollProgress } = useHorizontalScrollSequence({
     totalImages: images.length,
-    sectionHeight: '300vh', // Creates enough scroll space
+    sectionHeight: '200vh', // Adjust height to create enough scroll space
   });
 
   return (
@@ -21,7 +21,7 @@ const LoanAnalysisCarousel = () => {
       {/* Sticky container to keep images in view while scrolling */}
       <div 
         ref={contentRef}
-        className="sticky top-0 h-screen flex items-center justify-center transition-opacity duration-500"
+        className="h-screen flex items-center justify-center transition-opacity duration-500"
       >
         <div className="max-w-5xl w-full relative h-[60vh] overflow-hidden rounded-xl shadow-2xl">
           {/* Instructions for user */}

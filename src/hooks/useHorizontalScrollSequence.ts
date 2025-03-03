@@ -20,7 +20,8 @@ export const useHorizontalScrollSequence = ({
   const [scrollProgress, setScrollProgress] = useState(0);
   
   const lockPositionRef = useRef(0);
-  const bodyStyleRef = useRef<CSSStyleDeclaration['overflow']>('');
+  const initialScrollYRef = useRef(0);
+  const bodyStyleRef = useRef<string>('');
   
   useEffect(() => {
     const section = sectionRef.current;
@@ -35,17 +36,9 @@ export const useHorizontalScrollSequence = ({
       ([entry]) => {
         const isIntersecting = entry.isIntersecting;
         setIsInView(isIntersecting);
-        console.log(`Section in view: ${isIntersecting}`);
         
-        if (isIntersecting && activeImage === 0) {
-          setIsLocked(true);
-          lockPositionRef.current = window.scrollY;
-          // Save current body overflow style
-          bodyStyleRef.current = document.body.style.overflow;
-          // Lock body scroll
-          document.body.style.overflow = 'hidden';
-          // Apply fixed positioning to content
-          content.classList.add('scroll-locked');
+        if (isIntersecting && activeImage === 0 && !isLocked) {
+          lockScroll();
         }
       },
       {
@@ -56,66 +49,80 @@ export const useHorizontalScrollSequence = ({
     
     sectionObserver.observe(section);
 
-    // Scroll handler
-    const handleScroll = () => {
-      if (!section || !isInView) return;
+    const lockScroll = () => {
+      setIsLocked(true);
+      initialScrollYRef.current = window.scrollY;
+      lockPositionRef.current = window.scrollY;
       
-      const rect = section.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const sectionTop = rect.top;
+      // Save current body overflow style and set to hidden
+      bodyStyleRef.current = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
       
-      if (isLocked) {
-        const wheel = window.event as WheelEvent;
-        const delta = wheel ? wheel.deltaY : 20; // Default to positive delta (scroll down) if not available
-        const scrollDirection = delta > 0 ? 1 : -1; // 1 for down, -1 for up
-        
-        // Calculate progress based on accumulated scroll delta
-        let newProgress = scrollProgress + (scrollDirection * 0.05);
-        newProgress = Math.max(0, Math.min(1, newProgress)); // Clamp between 0 and 1
-        setScrollProgress(newProgress);
-        
-        const newImageIndex = Math.min(Math.floor(newProgress * totalImages), totalImages - 1);
-        
-        if (newImageIndex !== activeImage) {
-          console.log(`Setting active image to ${newImageIndex}, progress: ${newProgress}`);
-          setActiveImage(newImageIndex);
-        }
-        
-        if (newProgress >= 0.99 && activeImage === totalImages - 1) {
-          setIsLocked(false);
-          console.log('Unlocking vertical scroll');
-          // Restore body scroll
-          document.body.style.overflow = bodyStyleRef.current;
-          // Remove fixed positioning from content
-          content.classList.remove('scroll-locked');
-          // Ensure we scroll past this section
-          window.scrollTo(0, lockPositionRef.current + section.offsetHeight * 0.6);
-        }
-      } 
-      else if (sectionTop < viewportHeight * 0.5 && sectionTop > -viewportHeight * 0.5) {
-        if (activeImage === 0 && !isLocked) {
-          setIsLocked(true);
-          lockPositionRef.current = window.scrollY;
-          // Save current body overflow style
-          bodyStyleRef.current = document.body.style.overflow;
-          // Lock body scroll
-          document.body.style.overflow = 'hidden';
-          // Apply fixed positioning to content
-          content.classList.add('scroll-locked');
-        }
+      // Apply fixed positioning to content
+      if (content) {
+        content.style.position = 'fixed';
+        content.style.top = '0';
+        content.style.left = '0';
+        content.style.width = '100%';
+        content.style.zIndex = '1000';
+      }
+    };
+    
+    const unlockScroll = () => {
+      setIsLocked(false);
+      
+      // Restore body scroll style
+      document.body.style.overflow = bodyStyleRef.current;
+      
+      // Remove fixed positioning from content
+      if (content) {
+        content.style.position = '';
+        content.style.top = '';
+        content.style.left = '';
+        content.style.width = '';
+        content.style.zIndex = '';
+      }
+      
+      // Scroll to where we would have been after the sequence
+      window.scrollTo(0, lockPositionRef.current + section.offsetHeight * 0.6);
+    };
+
+    // Handle wheel events to control horizontal scrolling while locked
+    const handleWheel = (e: WheelEvent) => {
+      if (!isLocked || !isInView) return;
+      
+      e.preventDefault();
+      
+      // Calculate progress based on wheel delta
+      const delta = e.deltaY;
+      const scrollDirection = delta > 0 ? 1 : -1; // 1 for down, -1 for up
+      
+      // Calculate new progress value
+      let newProgress = scrollProgress + (scrollDirection * 0.05);
+      newProgress = Math.max(0, Math.min(1, newProgress)); // Clamp between 0 and 1
+      setScrollProgress(newProgress);
+      
+      // Calculate new active image based on progress
+      const newImageIndex = Math.floor(newProgress * totalImages);
+      if (newImageIndex !== activeImage && newImageIndex < totalImages) {
+        setActiveImage(newImageIndex);
+      }
+      
+      // Check if we've reached the end of the sequence
+      if (newProgress >= 0.99 && activeImage >= totalImages - 1) {
+        unlockScroll();
       }
     };
 
-    // Use wheel event for better control
-    window.addEventListener('wheel', handleScroll, { passive: false });
-    window.addEventListener('scroll', handleScroll);
+    // Add wheel event listener with passive: false to allow preventDefault
+    window.addEventListener('wheel', handleWheel, { passive: false });
     
     return () => {
-      window.removeEventListener('wheel', handleScroll);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('wheel', handleWheel);
       sectionObserver.disconnect();
+      
       // Ensure body overflow is restored when component unmounts
-      document.body.style.overflow = bodyStyleRef.current;
+      document.body.style.overflow = bodyStyleRef.current || '';
     };
   }, [totalImages, triggerThreshold, sectionHeight, isInView, activeImage, isLocked, scrollProgress]);
 
