@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 
 interface UseHorizontalScrollSequenceProps {
@@ -9,7 +10,7 @@ interface UseHorizontalScrollSequenceProps {
 export const useHorizontalScrollSequence = ({
   totalImages,
   triggerThreshold = 0.2,
-  sectionHeight = '100vh',
+  sectionHeight = '300vh',
 }: UseHorizontalScrollSequenceProps) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -19,6 +20,7 @@ export const useHorizontalScrollSequence = ({
   const [scrollProgress, setScrollProgress] = useState(0);
   
   const lockPositionRef = useRef(0);
+  const bodyStyleRef = useRef<CSSStyleDeclaration['overflow']>('');
   
   useEffect(() => {
     const section = sectionRef.current;
@@ -38,6 +40,12 @@ export const useHorizontalScrollSequence = ({
         if (isIntersecting && activeImage === 0) {
           setIsLocked(true);
           lockPositionRef.current = window.scrollY;
+          // Save current body overflow style
+          bodyStyleRef.current = document.body.style.overflow;
+          // Lock body scroll
+          document.body.style.overflow = 'hidden';
+          // Apply fixed positioning to content
+          content.classList.add('scroll-locked');
         }
       },
       {
@@ -57,9 +65,13 @@ export const useHorizontalScrollSequence = ({
       const sectionTop = rect.top;
       
       if (isLocked) {
-        const scrollDelta = window.scrollY - lockPositionRef.current;
-        const maxScrollDelta = viewportHeight * 1.5;
-        const newProgress = Math.min(Math.max(scrollDelta / maxScrollDelta, 0), 1);
+        const wheel = window.event as WheelEvent;
+        const delta = wheel ? wheel.deltaY : 20; // Default to positive delta (scroll down) if not available
+        const scrollDirection = delta > 0 ? 1 : -1; // 1 for down, -1 for up
+        
+        // Calculate progress based on accumulated scroll delta
+        let newProgress = scrollProgress + (scrollDirection * 0.05);
+        newProgress = Math.max(0, Math.min(1, newProgress)); // Clamp between 0 and 1
         setScrollProgress(newProgress);
         
         const newImageIndex = Math.min(Math.floor(newProgress * totalImages), totalImages - 1);
@@ -72,27 +84,40 @@ export const useHorizontalScrollSequence = ({
         if (newProgress >= 0.99 && activeImage === totalImages - 1) {
           setIsLocked(false);
           console.log('Unlocking vertical scroll');
-        } else {
-          window.scrollTo(0, lockPositionRef.current);
+          // Restore body scroll
+          document.body.style.overflow = bodyStyleRef.current;
+          // Remove fixed positioning from content
+          content.classList.remove('scroll-locked');
+          // Ensure we scroll past this section
+          window.scrollTo(0, lockPositionRef.current + section.offsetHeight * 0.6);
         }
       } 
       else if (sectionTop < viewportHeight * 0.5 && sectionTop > -viewportHeight * 0.5) {
-        if (activeImage === 0) {
+        if (activeImage === 0 && !isLocked) {
           setIsLocked(true);
           lockPositionRef.current = window.scrollY;
+          // Save current body overflow style
+          bodyStyleRef.current = document.body.style.overflow;
+          // Lock body scroll
+          document.body.style.overflow = 'hidden';
+          // Apply fixed positioning to content
+          content.classList.add('scroll-locked');
         }
       }
     };
 
+    // Use wheel event for better control
+    window.addEventListener('wheel', handleScroll, { passive: false });
     window.addEventListener('scroll', handleScroll);
     
-    handleScroll();
-
     return () => {
+      window.removeEventListener('wheel', handleScroll);
       window.removeEventListener('scroll', handleScroll);
       sectionObserver.disconnect();
+      // Ensure body overflow is restored when component unmounts
+      document.body.style.overflow = bodyStyleRef.current;
     };
-  }, [totalImages, triggerThreshold, sectionHeight, isInView, activeImage, isLocked]);
+  }, [totalImages, triggerThreshold, sectionHeight, isInView, activeImage, isLocked, scrollProgress]);
 
   return { sectionRef, contentRef, activeImage, isInView, isLocked, scrollProgress };
 };

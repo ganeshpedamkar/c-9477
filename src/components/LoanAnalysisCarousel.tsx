@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useHorizontalScrollSequence } from '@/hooks/useHorizontalScrollSequence';
 
@@ -20,11 +21,18 @@ const LoanAnalysisCarousel = () => {
       {/* Sticky container to keep images in view while scrolling */}
       <div 
         ref={contentRef}
-        className={`sticky top-0 h-screen flex items-center justify-center transition-opacity duration-500 ${
-          isLocked ? 'opacity-100' : 'opacity-100'
-        }`}
+        className="sticky top-0 h-screen flex items-center justify-center transition-opacity duration-500"
       >
         <div className="max-w-5xl w-full relative h-[60vh] overflow-hidden rounded-xl shadow-2xl">
+          {/* Instructions for user */}
+          {isLocked && (
+            <div className="absolute top-2 left-0 right-0 z-30 flex justify-center">
+              <div className="bg-black/70 px-4 py-1 rounded-full text-sm text-white/80 animate-pulse">
+                Scroll down to view analysis
+              </div>
+            </div>
+          )}
+          
           {/* Progress indicator */}
           <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-2">
             {images.map((_, index) => (
@@ -37,7 +45,7 @@ const LoanAnalysisCarousel = () => {
             ))}
           </div>
           
-          {/* Scroll Progress Indicator (optional) */}
+          {/* Scroll Progress Indicator */}
           <div className="absolute top-4 left-0 right-0 z-20 flex justify-center gap-2">
             <div className="bg-gray-200 h-1 w-48 rounded-full overflow-hidden">
               <div 
