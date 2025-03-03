@@ -1,7 +1,7 @@
 
 import { useEffect, useRef } from 'react';
 
-export const useScrollAnimation = (threshold = 0.1, delay = 0) => {
+export const useScrollAnimation = (threshold = 0.4, delay = 0) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -11,7 +11,6 @@ export const useScrollAnimation = (threshold = 0.1, delay = 0) => {
           // Add visible debugging to see when this is triggered
           console.log(`Element intersected with threshold ${threshold}`);
           setTimeout(() => {
-            entry.target.classList.remove('opacity-0', 'translate-y-8');
             entry.target.classList.add('animate-in');
           }, delay);
           observer.unobserve(entry.target);
@@ -19,11 +18,12 @@ export const useScrollAnimation = (threshold = 0.1, delay = 0) => {
       },
       {
         threshold,
-        rootMargin: '50px 0px', // Add more margin to trigger earlier
+        rootMargin: '20px 0px', // Add some margin to trigger a bit earlier
       }
     );
 
     if (ref.current) {
+      ref.current.classList.add('opacity-0', 'translate-y-8');
       observer.observe(ref.current);
     }
 
