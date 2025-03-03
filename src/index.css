@@ -17,13 +17,6 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    scroll-behavior: smooth;
-    overflow-x: hidden; /* Prevent horizontal scroll on page */
-  }
-  
-  /* Add smooth scrolling to html for better experience */
-  html {
-    scroll-behavior: smooth;
   }
 }
 
@@ -54,45 +47,4 @@
 
 .animate-in.translate-y-8 {
   transform: translateY(0);
-}
-
-/* Horizontal scroll sequence styles */
-.horizontal-scroll-container {
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
-
-.horizontal-scroll-content {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.horizontal-scroll-image {
-  transition: opacity 0.5s ease-in-out, transform 0.8s ease-in-out;
-}
-
-.horizontal-scroll-image.active {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.horizontal-scroll-image.inactive {
-  opacity: 0;
-  transform: translateX(50px);
-}
-
-/* Fixed position for locked scroll state */
-.scroll-locked-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 100;
-  background-color: inherit;
 }
