@@ -18,6 +18,12 @@
   body {
     @apply bg-background text-foreground antialiased;
     scroll-behavior: smooth;
+    overflow-x: hidden; /* Prevent horizontal scroll on page */
+  }
+  
+  /* Add smooth scrolling to html for better experience */
+  html {
+    scroll-behavior: smooth;
   }
 }
 
@@ -78,4 +84,13 @@
 .horizontal-scroll-image.inactive {
   opacity: 0;
   transform: translateX(50px);
+}
+
+/* Additional styles for scroll-locked content */
+.scroll-locked {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
 }

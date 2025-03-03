@@ -10,15 +10,20 @@ const LoanAnalysisCarousel = () => {
     "/lovable-uploads/fffaa06e-eb86-46b4-a66b-128eff971a24.png"
   ];
   
-  const { sectionRef, activeImage, isInView } = useHorizontalScrollSequence({
+  const { sectionRef, contentRef, activeImage, isLocked, scrollProgress } = useHorizontalScrollSequence({
     totalImages: images.length,
-    sectionHeight: '200vh', // Creates enough scroll space
+    sectionHeight: '300vh', // Creates enough scroll space
   });
 
   return (
     <div ref={sectionRef} className="w-full relative">
       {/* Sticky container to keep images in view while scrolling */}
-      <div className="sticky top-0 h-screen flex items-center justify-center">
+      <div 
+        ref={contentRef}
+        className={`sticky top-0 h-screen flex items-center justify-center transition-opacity duration-500 ${
+          isLocked ? 'opacity-100' : 'opacity-100'
+        }`}
+      >
         <div className="max-w-5xl w-full relative h-[60vh] overflow-hidden rounded-xl shadow-2xl">
           {/* Progress indicator */}
           <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-2">
@@ -30,6 +35,16 @@ const LoanAnalysisCarousel = () => {
                 }`}
               />
             ))}
+          </div>
+          
+          {/* Scroll Progress Indicator (optional) */}
+          <div className="absolute top-4 left-0 right-0 z-20 flex justify-center gap-2">
+            <div className="bg-gray-200 h-1 w-48 rounded-full overflow-hidden">
+              <div 
+                className="bg-accent h-full transition-all duration-200"
+                style={{ width: `${scrollProgress * 100}%` }}
+              ></div>
+            </div>
           </div>
           
           {/* Gradient overlay */}
@@ -47,7 +62,10 @@ const LoanAnalysisCarousel = () => {
               <div 
                 key={index} 
                 className="relative flex-1"
-                style={{ opacity: index <= activeImage ? 1 : 0.3, transition: 'opacity 0.5s ease-in-out' }}
+                style={{ 
+                  opacity: index <= activeImage ? 1 : 0.3, 
+                  transition: 'opacity 0.5s ease-in-out',
+                }}
               >
                 <img 
                   src={src} 
