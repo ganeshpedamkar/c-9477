@@ -27,7 +27,7 @@ const Hero = () => {
         </div>
         <div className="relative">
           <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl">
-            <img alt="Banking App" className="w-full h-auto" src="/lovable-uploads/53e75e6e-100a-4504-bee2-1068223588c9.jpg" />
+            
           </div>
           <div className="absolute -bottom-4 -right-4 w-72 h-72 bg-accent/20 rounded-full blur-3xl"></div>
         </div>
