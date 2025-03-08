@@ -1,15 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Apple, Play } from "lucide-react";
-
 const Download = () => {
-  return (
-    <div className="py-20 px-4 bg-background relative overflow-hidden">
+  return <div className="py-20 px-4 bg-background relative overflow-hidden">
       <div className="absolute inset-0 bg-accent/5 backdrop-blur-3xl"></div>
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center space-y-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
-            Get Started Today
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-white">Start Planning your loans Today</h2>
           <p className="text-xl text-white/60 max-w-2xl mx-auto">
             Download our app and experience the future of banking. Available on iOS and Android.
           </p>
@@ -25,8 +21,6 @@ const Download = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Download;
