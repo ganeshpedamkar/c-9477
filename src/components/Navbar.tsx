@@ -1,20 +1,15 @@
-
 import { Button } from "@/components/ui/button";
 import { PhoneCall, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
   const handleConnect = () => {
     window.location.href = "tel:+919769106890";
   };
-  
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  
   return <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-background/80 backdrop-blur-lg">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
@@ -30,7 +25,7 @@ const Navbar = () => {
             <Link to="/" className="text-white/80 hover:text-white transition-colors">Home</Link>
             <Link to="/about" className="text-white/80 hover:text-white transition-colors">About us</Link>
             <Link to="#" className="text-white/80 hover:text-white transition-colors">Contact us</Link>
-            <Link to="#" className="text-white/80 hover:text-white transition-colors">Pricing</Link>
+            <Link to="#" className="text-white/80 hover:text-white transition-colors">Knowledge</Link>
             <a href="https://btcalculator.profound.org.in/" target="_blank" rel="noopener noreferrer">
               <Button variant="outline" className="text-white border-white/20 bg-blue-700 hover:bg-blue-600">Calculator</Button>
             </a>
@@ -62,5 +57,4 @@ const Navbar = () => {
       </div>
     </nav>;
 };
-
 export default Navbar;
